@@ -6,6 +6,8 @@ class SodaMachine:
     def __init__(self):
         self.register = []
         self.inventory = []
+        self.fill_inventory()
+        self.fill_register()
 
     def fill_register(self):
         """Method will fill SodaMachine's register with certain amounts of each coin when called."""
@@ -17,6 +19,8 @@ class SodaMachine:
                 self.register.append(coins.Nickel())
             for index in range(50):
                 self.register.append(coins.Penny())
+                return index
+                
 
     def fill_inventory(self):
         """Method will fill SodaMachine's cans list with certain amounts of each can when called."""
@@ -26,6 +30,7 @@ class SodaMachine:
             self.inventory.append(cans.OrangeSoda())
         for index in range(10):
             self.inventory.append(cans.RootBeer())
+            return index
 
     def begin_transaction(self, customer):
         """Method is complete. Initiates purchase if user decides to proceed. No errors."""
@@ -51,7 +56,7 @@ class SodaMachine:
             change_value = self.determine_change_value(total_payment_value, selected_soda.price)
             customer_change = self.gather_change_from_register(change_value)
             if customer_change is None:
-                user_interface.output_text('Dispensing ${total_payment_value} back to customer')
+                user_interface.output_text(f'Dispensing ${total_payment_value} back to customer')
                 customer.add_coins_to_wallet(customer_payment)
                 self.return_inventory(selected_soda)
             else:
@@ -114,6 +119,7 @@ class SodaMachine:
 
     def calculate_coin_value(self, coin_list):
         """Takes in a list of coins, returns the monetary value of list."""
+        self.total_value = 0
         for coin in coin_list:
             self.total_value += coin.value
         return round(self.total_value, 2)
@@ -121,7 +127,7 @@ class SodaMachine:
     def get_inventory_soda(self, selected_soda_name):
         """Returns the first instance of a can whose name matches the selected_soda_name parameter"""
         for can in self.inventory:
-            if can == selected_soda_name:
+            if can.name == selected_soda_name:
                 self.inventory.remove(can)
                 return can
         return None

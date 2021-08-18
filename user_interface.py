@@ -74,14 +74,14 @@ def soda_selection(inventory):
         print("Please choose from the following options:")
         i = 1
         for can in soda_options:
-            print("\n\tEnter -{i}- for {can} : ${can.price}")
+            print(f"\n\tEnter -{i}- for {can.name} : ${can.price}")
             # originally i ++
-            i+1
+            i += 1
         user_selection = try_parse_int(input("Selection:"))
         validated_user_selection = validate_coin_choice(user_selection, soda_options)
     return validated_user_selection[1]
-
-
+    
+    # can doesnt have the property of price
 def validate_coin_choice(selection, unique_cans):
     """Translates user menu selection into the name of can that was chosen. No errors."""
     if 0 < selection <= len(unique_cans):
@@ -111,7 +111,7 @@ def get_unique_can_names(inventory):
             previous_names.append(can.name)
     return unique_cans
 
-
+# can is an object but want to access property name
 def display_can_cost(selected_can):
     """Displays the name of a can and its price"""
     print(f'The price of a {selected_can.price} is ${selected_can.price}')
@@ -122,20 +122,21 @@ def display_payment_value(customer_payment):
     total_payment_value = 0
     for coin in customer_payment:
         total_payment_value += 1
+        return coin
     total_payment_value = round(total_payment_value, 2)
     print(f'You currently have ${total_payment_value} in hand')
 
 
 def coin_selection():
     """Prompts user to choose which coins to deposit and passes their selection in validate_coin_selection"""
-    validated_user_selection = (False, None)
-    while validated_user_selection[0] is False:
+    validated_user_selection = (True, None)
+    while validated_user_selection[0] is True:
         print("\n\tEnter -Q- for Quarter")
         print("\tEnter -D- for Dime")
         print("\tEnter -N- for Nickel")
         print("\tEnter -P- for Penny")
         print("\tEnter -5- for when finished to deposit payment into machine")
-        user_input = try_parse_int(input())
+        user_input = (input())
         validated_user_selection = validate_coin_selection(user_input)
         if validated_user_selection[0] is False:
             print("Not a valid selection try again")
