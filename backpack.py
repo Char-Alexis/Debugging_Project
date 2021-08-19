@@ -1,3 +1,4 @@
+from cans import Can
 
 class Backpack:
     def __init__(self):

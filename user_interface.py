@@ -6,22 +6,22 @@ def simulation_main_menu():
     validate_user_selection = (False, None)
     while validate_user_selection[0] is False:
         print("\t\t-Simulation menu-")
-        print("\tPress -0- to begin transaction")
-        print("\tPress -1- to check wallet for coins")
-        print("\tPress -2- to check backpack for cans")
-        print("\tPress -3- to terminate simulation")
+        print("\tPress -1- to begin transaction")
+        print("\tPress -2- to check wallet for coins")
+        print("\tPress -3- to check backpack for cans")
+        print("\tPress -4- to terminate simulation")
         user_input = try_parse_int(input())
         validate_user_selection = validate_main_menu(user_input)
-        return validate_user_selection[1]
+    return validate_user_selection[1]
 
 
 def validate_main_menu(user_input):
     """Validation function that checks if 'user_input' argument is an int 1-4. No errors."""
     switcher = {
-        0: (True, 0),
         1: (True, 1),
         2: (True, 2),
         3: (True, 3),
+        4: (True, 4),
     }
     return switcher.get(user_input, (False, None))
 
@@ -75,8 +75,9 @@ def soda_selection(inventory):
         i = 1
         for can in soda_options:
             print(f"\n\tEnter -{i}- for {can.name} : ${can.price}")
-            i += 1
-        user_selection = try_parse_int(input("Selection:"))
+            # originally i ++
+            i +=1
+        user_selection = try_parse_int(input("Selection: "))
         validated_user_selection = validate_coin_choice(user_selection, soda_options)
     return validated_user_selection[1]
     
@@ -113,51 +114,48 @@ def get_unique_can_names(inventory):
 # can is an object but want to access property name
 def display_can_cost(selected_can):
     """Displays the name of a can and its price"""
-    print(f'The price of a {selected_can.name} is ${selected_can.price}')
+    print(f'The price of a {selected_can.price} is ${selected_can.price}')
 
 
 def display_payment_value(customer_payment):
     """Displays the value of selected coins as customer is choosing coins to deposit"""
     total_payment_value = 0
     for coin in customer_payment:
-        total_payment_value += 1
-        return coin
+        total_payment_value += coin.value
     total_payment_value = round(total_payment_value, 2)
     print(f'You currently have ${total_payment_value} in hand')
 
 
 def coin_selection():
     """Prompts user to choose which coins to deposit and passes their selection in validate_coin_selection"""
-    d = { "Quarter":0.25, "Dime": 0.1, "Nickel": 0.05, "Penny": 0.1}
-    validated_user_selection = (True, None)
-    while validated_user_selection[0] == True:
-        print("\n\tEnter -Q- for Quarter")
-        print("\tEnter -D- for Dime")
-        print("\tEnter -N- for Nickel")
-        print("\tEnter -P- for Penny")
+    validated_user_selection = (False, None)
+    while validated_user_selection[0] is False:
+        print("\n\tEnter -1- for Quarter")
+        print("\tEnter -2- for Dime")
+        print("\tEnter -3- for Nickel")
+        print("\tEnter -4- for Penny")
         print("\tEnter -5- for when finished to deposit payment into machine")
-        user_input = input()
+        user_input = try_parse_int (input())
         validated_user_selection = validate_coin_selection(user_input)
-        coin_name = validated_user_selection[1]
-    #     if validated_user_selection[0] is False:
-    # #         print("Not a valid selection try again")
-    # # return validated_user_selection[1]
-        return coin_name
+        if validated_user_selection[0] is False:
+            print("Not a valid selection try again")
+    return validated_user_selection[1]
+
 
 def validate_coin_selection(selection):
     """Validation function that checks if 'selection' arugment is an int 1-5"""
     switcher = {
-        'Q': (True, "Quarter"),
-        'D': (True, "Dime"),
-        'N': (True, "Nickel"),
-        'P': (True, "Penny"),
-        '5': (True, "Done")
+        1: (True, "Quarter"),
+        2: (True, "Dime"),
+        3: (True, "Nickel"),
+        4: (True, "Penny"),
+        5: (True, "Done")
     }
     return switcher.get(selection, (False, None))
 
 
 def end_message(soda_name, change_amount):
     """Closing message displaying name of soda purchased and amount of change returned"""
-    print(f'Enjoy your {soda.name}')
-    if change_amount == 0:
+    print(f'Enjoy your {soda_name.name}')
+    if change_amount >= 0:
         print(f'Dispensing ${change_amount}')
