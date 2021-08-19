@@ -2,7 +2,6 @@
 # Debuggin Project 
 #Authors Samuel McKnight & Charmine Llacuna
 # Class Iridium
-
 from simulation import Simulation
 
 
