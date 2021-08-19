@@ -1,3 +1,8 @@
+# Created August 19th 2021
+# Debuggin Project 
+#Authors Samuel McKnight & Charmine Llacuna
+# Class Iridium
+
 from customer import Customer
 import user_interface
 from soda_machine import SodaMachine

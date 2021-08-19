@@ -1,4 +1,8 @@
-# This is a sample Python script.
+# Created August 19th 2021
+# Debuggin Project 
+#Authors Samuel McKnight & Charmine Llacuna
+# Class Iridium
+
 from simulation import Simulation
 
 

@@ -1,3 +1,7 @@
+# Created August 19th 2021
+# Debuggin Project 
+#Authors Samuel McKnight & Charmine Llacuna
+# Class Iridium
 class Can:
     def __init__(self, name, price):
         self.name = name

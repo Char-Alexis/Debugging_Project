@@ -1,3 +1,9 @@
+
+# Created August 19th 2021
+# Debuggin Project 
+#Authors Samuel McKnight & Charmine Llacuna
+# Class Iridium
+
 import coins
 import cans
 import user_interface
