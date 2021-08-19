@@ -4,7 +4,7 @@
 #Authors Samuel McKnight & Charmine Llacuna
 # Class Iridium
 
-import coins
+from coins import*
 import cans
 import user_interface
 
@@ -15,16 +15,16 @@ class SodaMachine:
         self.fill_inventory()
         self.fill_register()
 
-    def fill_register(self): # added self to parameter
+    def fill_register(self):
         """Method will fill SodaMachine's register with certain amounts of each coin when called."""
         for index in range(8):
-            self.register.append(coins.Quarter()) #indented lines 13 15 17 19
+            self.register.append(Quarter()) 
         for index in range(10):
-            self.register.append(coins.Dime())
+            self.register.append(Dime())
         for index in range(20):
-            self.register.append(coins.Nickel())
+            self.register.append(Nickel())
         for index in range(50):
-            self.register.append(coins.Penny())
+            self.register.append(Penny())
 
     def fill_inventory(self):
         """Method will fill SodaMachine's cans list with certain amounts of each can when called."""
@@ -76,7 +76,7 @@ class SodaMachine:
             customer.add_coins_to_wallet(customer_payment)
             self.return_inventory(selected_soda)
 
-    def gather_change_from_register(self, change_value): # added colon to end
+    def gather_change_from_register(self, change_value): 
         change_list = []
         while change_value > 0:
             if change_value >= 0.25 and self.register_has_coin("Quarter"):
@@ -110,7 +110,7 @@ class SodaMachine:
         return None
 
     def register_has_coin(self, coin_name):
-        """Searches register for a type of coin, returns True if coin is found""" #changed "coin_name" to parameter
+        """Searches register for a type of coin, returns True if coin is found"""
         for coin in self.register:
             if coin.name == coin_name:
                 return True
@@ -122,24 +122,23 @@ class SodaMachine:
 
     def calculate_coin_value(self, coin_list):
         """Takes in a list of coins, returns the monetary value of list. COMPLETE"""
-        total_value = 0 # added total = 0
+        total_value = 0 
         for coin in coin_list:
             total_value += coin.value
         return round(total_value, 2)
 
-    def get_inventory_soda(self, selected_soda_name): # added name to can
+    def get_inventory_soda(self, selected_soda_name): 
         """Returns the first instance of a can whose name matches the selected_soda_name parameter"""
         for can in self.inventory:
             if can.name == selected_soda_name:
-                self.inventory.remove(can)
                 return can
         return None
 
-    def return_inventory(self, selected_soda): # changed chosen_soda parameter to selected_soda
+    def return_inventory(self, selected_soda): 
         """Re-adds a remove can back to inventory upon unsuccessful purchase attempt"""
         self.inventory.append(selected_soda)
 
     def deposit_coins_into_register(self, coin_list):
         """Takes in list of coins as argument, adds each coin from list to the register.COMPLETED"""
-        for coin in coin_list: # changed coins_list to coin_list
+        for coin in coin_list: 
             self.register.append(coin)
